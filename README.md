@@ -1,7 +1,7 @@
 AriaMac
 =======================================
 
-Author:    DAI XIAOHUA  
+Author:    Ian Dai  
 Email:     iandaicsu_at_gmail_dot_com
 
 
