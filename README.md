@@ -12,8 +12,9 @@ Mac OS X client for aria2.
 Tested on OS X 10.11.
 
 
-Usage
+Downloads
 ------------
-Download installer from https://github.com/iandai/AriaMac/tree/master/installer.
+
+https://github.com/iandai/AriaMac/releases/tag/v1.0
 
 
