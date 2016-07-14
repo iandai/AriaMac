@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C0376681D34F9A000F356C8 /* aria2c in Resources */ = {isa = PBXBuildFile; fileRef = 3C0376661D34F9A000F356C8 /* aria2c */; };
 		3C0376691D34F9A000F356C8 /* aria2c.conf in Resources */ = {isa = PBXBuildFile; fileRef = 3C0376671D34F9A000F356C8 /* aria2c.conf */; };
+		3C044EEB1D37B00C00AB104E /* AMAriaRpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C044EEA1D37B00C00AB104E /* AMAriaRpcApi.swift */; };
 		3C3C4C7E1D228B33005536C4 /* AMTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3C4C7D1D228B33005536C4 /* AMTableCell.swift */; };
 		3C43B0D71D253523007FA757 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C43B0D61D253523007FA757 /* Assets.xcassets */; };
 		3C57BE5C1D1B2AD900714DF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C57BE5B1D1B2AD900714DF2 /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		3C0376661D34F9A000F356C8 /* aria2c */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = aria2c; path = AiraMac/aria2c/aria2c; sourceTree = "<group>"; };
 		3C0376671D34F9A000F356C8 /* aria2c.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = aria2c.conf; path = AiraMac/aria2c/aria2c.conf; sourceTree = "<group>"; };
+		3C044EEA1D37B00C00AB104E /* AMAriaRpcApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMAriaRpcApi.swift; sourceTree = "<group>"; };
 		3C3C4C7D1D228B33005536C4 /* AMTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMTableCell.swift; sourceTree = "<group>"; };
 		3C43B0D61D253523007FA757 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C57BE581D1B2AD900714DF2 /* Aira2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +50,37 @@
 			name = aria2c;
 			sourceTree = "<group>";
 		};
+		3C044EEC1D37B25E00AB104E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3C044EEA1D37B00C00AB104E /* AMAriaRpcApi.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		3C044EED1D37B27000AB104E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3C57BE5D1D1B2AD900714DF2 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		3C044EEE1D37B27700AB104E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3C044EEF1D37B27D00AB104E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C3C4C7D1D228B33005536C4 /* AMTableCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		3C57BE4F1D1B2AD900714DF2 = {
 			isa = PBXGroup;
 			children = (
@@ -68,9 +101,11 @@
 		3C57BE5A1D1B2AD900714DF2 /* AiraMac */ = {
 			isa = PBXGroup;
 			children = (
+				3C044EEC1D37B25E00AB104E /* API */,
+				3C044EEE1D37B27700AB104E /* Model */,
 				3C57BE5B1D1B2AD900714DF2 /* AppDelegate.swift */,
-				3C57BE5D1D1B2AD900714DF2 /* ViewController.swift */,
-				3C3C4C7D1D228B33005536C4 /* AMTableCell.swift */,
+				3C044EED1D37B27000AB104E /* Controller */,
+				3C044EEF1D37B27D00AB104E /* View */,
 				3C57BE611D1B2AD900714DF2 /* Main.storyboard */,
 				3C43B0D61D253523007FA757 /* Assets.xcassets */,
 				3C57BE641D1B2AD900714DF2 /* Info.plist */,
@@ -153,6 +188,7 @@
 				3C57BE5E1D1B2AD900714DF2 /* ViewController.swift in Sources */,
 				3C57BE5C1D1B2AD900714DF2 /* AppDelegate.swift in Sources */,
 				3C3C4C7E1D228B33005536C4 /* AMTableCell.swift in Sources */,
+				3C044EEB1D37B00C00AB104E /* AMAriaRpcApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

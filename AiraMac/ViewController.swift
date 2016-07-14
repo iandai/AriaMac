@@ -9,12 +9,13 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    
+//    private let ariaApi: AMAriaRpcApi
 
     @IBOutlet weak var topView: NSView!
     @IBOutlet weak var sideView: NSView!
     @IBOutlet weak var tableView: NSTableView!
-    
-    
     @IBOutlet weak var startBtn: NSButton!
     @IBOutlet weak var pauseBtn: NSButton!
     @IBOutlet weak var deleteBtn: NSButton!
@@ -23,7 +24,8 @@ class ViewController: NSViewController {
     var activeDownload = [NSDictionary]()
     var waitingDownload = [NSDictionary]()
     var stoppedDownload = [NSDictionary]()
-    
+//    var ariaApi = AMAriaRpcApi()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +35,8 @@ class ViewController: NSViewController {
         tableView.target = self
         
         self.sideView.layer?.contents = NSImage.init(named:"side-img")
-        
-        
         self.startBtn.enabled = false;
-        
-        
+
         // get status every second
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSEventTrackingRunLoopMode)
@@ -60,7 +59,7 @@ class ViewController: NSViewController {
                 
                 // add uri task
                 let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.addUri", "params":[[enteredString]] ]
-                self.sendRpcJsonRequest(json)
+                AMAriaRpcApi().sendRpcJsonRequest(json)
             }
         })
         
@@ -81,21 +80,18 @@ class ViewController: NSViewController {
     
     @IBAction func startAll(sender: NSMenuItem) {
         let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
-        sendRpcJsonRequest(json)
+        AMAriaRpcApi().sendRpcJsonRequest(json)
     }
     
     @IBAction func pauseAll(sender: NSMenuItem) {
         let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pauseAll", "params":[] ]
-        sendRpcJsonRequest(json)
+        AMAriaRpcApi().sendRpcJsonRequest(json)
     }
     
     @IBAction func removeAll(sender: NSMenuItem) {
     }
     
 
-    
-    
-    
     func updateStatus() {
         getAllDownload()
         reloadDataWithSelection()
@@ -114,7 +110,7 @@ class ViewController: NSViewController {
         
         // getActiveDownload
         let json1 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellActive", "params":[] ]
-        let request1 = constructRequest(json1)
+        let request1 = AMAriaRpcApi().constructRequest(json1)
         dispatch_group_enter(downloadGroup)
         let getActiveDownload = NSURLSession.sharedSession().dataTaskWithRequest(request1){ data, response, error in
             if error != nil { print("Error -> \(error)"); return }
@@ -133,7 +129,7 @@ class ViewController: NSViewController {
        
         // getWaitingDownload
         let json2 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellWaiting", "params":[0,100] ]
-        let request2 = constructRequest(json2)
+        let request2 = AMAriaRpcApi().constructRequest(json2)
         dispatch_group_enter(downloadGroup)
         let getWaitingDownload = NSURLSession.sharedSession().dataTaskWithRequest(request2){ data, response, error in
             if error != nil { print("Error -> \(error)"); return }
@@ -151,7 +147,7 @@ class ViewController: NSViewController {
         
         // getStoppedDownload
         let json3 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellStopped", "params":[0,100] ]
-        let request3 = constructRequest(json3)
+        let request3 = AMAriaRpcApi().constructRequest(json3)
         dispatch_group_enter(downloadGroup)
         let getStoppedDownload = NSURLSession.sharedSession().dataTaskWithRequest(request3){ data, response, error in
             if error != nil { print("Error -> \(error)"); return }
@@ -176,44 +172,6 @@ class ViewController: NSViewController {
         }
     }
     
-
-    func constructRequest(json: AnyObject) ->  NSURLRequest {
-        
-        let url = NSURL(string: "http://rpc:123456@127.0.0.1:6800/jsonrpc")!
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        do {
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
-            request.HTTPBody = jsonData
-        } catch {
-            print(error)
-        }
-        
-        return request
-    }
-    
-    
-    func sendRpcJsonRequest(json: AnyObject) {
-    
-        let request = constructRequest(json)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ data, response, error in
-            if error != nil { print("Error -> \(error)"); return }
-            
-            do {
-                let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]
-                print("Result -> \(result)")
-            } catch {
-                print("Error -> \(error)")
-            }
-        }
-        
-        task.resume()
-    }
-    
-    
     func pauseBtnTapped(sender:NSButton) {
  
         let row = sender.tag
@@ -222,10 +180,10 @@ class ViewController: NSViewController {
 
         if sender.image?.name() == "pause" {
             let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pause", "params":[gid] ]
-            sendRpcJsonRequest(json)
+            AMAriaRpcApi().sendRpcJsonRequest(json)
         } else if sender.image?.name() == "start" {
             let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpause", "params":[gid] ]
-            sendRpcJsonRequest(json)
+            AMAriaRpcApi().sendRpcJsonRequest(json)
         }
     }
     
