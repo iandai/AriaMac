@@ -5,6 +5,11 @@ Author:    Ian Dai
 Email:     iandaicsu_at_gmail_dot_com
 
 
+Screen Shot
+------------
+![](https://raw.githubusercontent.com/iandai/AriaMac/master/ScreenShot.png)
+
+
 Introduction
 ------------
 
