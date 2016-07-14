@@ -36,7 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func initAria2c() {
         let task = NSTask()
         task.launchPath = "/bin/bash"
-        task.arguments = ["-c", "\(NSBundle.mainBundle().resourcePath!)/aria2c/aria2c --conf-path=\(NSBundle.mainBundle().resourcePath!)/aria2c/aria2c.conf --dir=${HOME}/Downloads/"]
+        task.arguments = ["-c", "\(NSBundle.mainBundle().resourcePath!)/aria2c --conf-path=\(NSBundle.mainBundle().resourcePath!)/aria2c.conf --dir=${HOME}/Downloads/"]
         let pipe = NSPipe()
         task.standardOutput = pipe
         task.launch()

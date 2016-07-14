@@ -10,7 +10,15 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var topView: NSView!
+    @IBOutlet weak var sideView: NSView!
     @IBOutlet weak var tableView: NSTableView!
+    
+    
+    @IBOutlet weak var startBtn: NSButton!
+    @IBOutlet weak var pauseBtn: NSButton!
+    @IBOutlet weak var deleteBtn: NSButton!
+    
     var allDownload = [NSDictionary]()
     var activeDownload = [NSDictionary]()
     var waitingDownload = [NSDictionary]()
@@ -23,7 +31,13 @@ class ViewController: NSViewController {
         tableView.setDelegate(self)
         tableView.setDataSource(self)
         tableView.target = self
-   
+        
+        self.sideView.layer?.contents = NSImage.init(named:"side-img")
+        
+        
+        self.startBtn.enabled = false;
+        
+        
         // get status every second
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSEventTrackingRunLoopMode)
@@ -52,15 +66,34 @@ class ViewController: NSViewController {
         
     }
     
-    @IBAction func stopDownloading(sender: NSButton) {
+    
+    @IBAction func stopTask(sender: NSMenuItem) {
+        //        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
+        //        sendRpcJsonRequest(json)
+    }
+    
+    
+    @IBAction func removeTask(sender: NSMenuItem) {
+        //        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.remove", "params":[] ]
+        //        sendRpcJsonRequest(json)
+    }
+    
+    
+    @IBAction func startAll(sender: NSMenuItem) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
+        sendRpcJsonRequest(json)
+    }
+    
+    @IBAction func pauseAll(sender: NSMenuItem) {
         let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pauseAll", "params":[] ]
         sendRpcJsonRequest(json)
     }
     
-    @IBAction func startDownloading(sender: NSButton) {
-        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
-        sendRpcJsonRequest(json)
+    @IBAction func removeAll(sender: NSMenuItem) {
     }
+    
+
+    
     
     
     func updateStatus() {

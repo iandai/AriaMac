@@ -21,39 +21,35 @@
       "scale" : "2x"
     },
     {
-      "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "ar-5.png",
+      "size" : "128x128",
       "scale" : "1x"
     },
     {
-      "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "ar.png",
+      "size" : "128x128",
       "scale" : "2x"
     },
     {
-      "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "ar-3.png",
+      "size" : "256x256",
       "scale" : "1x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "ar-2.png",
+      "filename" : "Slice 2.png",
       "scale" : "2x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "ar-1.png",
+      "filename" : "Slice 2-1.png",
       "scale" : "1x"
     },
     {
-      "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "ar-4.png",
+      "size" : "512x512",
       "scale" : "2x"
     }
   ],
