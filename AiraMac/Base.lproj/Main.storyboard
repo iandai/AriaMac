@@ -793,7 +793,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="VyK-WF-MhB">
+                            <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VyK-WF-MhB">
                                 <rect key="frame" x="0.0" y="0.0" width="60" height="500"/>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="kva-di-eWV">

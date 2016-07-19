@@ -34,7 +34,8 @@ class ViewController: NSViewController {
         tableView.setDataSource(self)
         tableView.target = self
         
-        self.sideView.layer?.contents = NSImage.init(named:"side-img")
+        //        self.sideView.layer?.contents = NSImage.init(named:"side-img")
+        self.sideView.layer?.backgroundColor = NSColor.init(patternImage: NSImage.init(named:"side-img")!).CGColor
         self.startBtn.enabled = false;
 
         // get status every second
@@ -65,16 +66,46 @@ class ViewController: NSViewController {
         
     }
     
+    func updateStatus() {
+        AMAriaRpcApi().downloadTasks({(result: AnyObject?, error: NSError?) -> Int in
+            // callback here
+            self.allDownload = result as! [NSDictionary]
+        })
+        reloadDataWithSelection()
+    }
+    
+    func reloadDataWithSelection() {
+        let selectedIndexPaths = tableView.selectedRowIndexes
+        tableView.reloadData()
+        tableView.selectRowIndexes(selectedIndexPaths, byExtendingSelection: false)
+    }
+    
+    
+    func pauseBtnTapped(sender:NSButton) {
+        
+        let row = sender.tag
+        let item = allDownload[row]
+        let gid = item["gid"] as! String
+        
+        if sender.image?.name() == "pause" {
+            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pause", "params":[gid] ]
+            AMAriaRpcApi().sendRpcJsonRequest(json)
+        } else if sender.image?.name() == "start" {
+            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpause", "params":[gid] ]
+            AMAriaRpcApi().sendRpcJsonRequest(json)
+        }
+    }
+    
     
     @IBAction func stopTask(sender: NSMenuItem) {
-        //        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
-        //        sendRpcJsonRequest(json)
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
+        AMAriaRpcApi().sendRpcJsonRequest(json)
     }
     
     
     @IBAction func removeTask(sender: NSMenuItem) {
-        //        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.remove", "params":[] ]
-        //        sendRpcJsonRequest(json)
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.remove", "params":[] ]
+        AMAriaRpcApi().sendRpcJsonRequest(json)
     }
     
     
@@ -91,101 +122,8 @@ class ViewController: NSViewController {
     @IBAction func removeAll(sender: NSMenuItem) {
     }
     
+    
 
-    func updateStatus() {
-        getAllDownload()
-        reloadDataWithSelection()
-    }
-    
-    func reloadDataWithSelection() {
-        let selectedIndexPaths = tableView.selectedRowIndexes
-        tableView.reloadData()
-        tableView.selectRowIndexes(selectedIndexPaths, byExtendingSelection: false)
-    }
-    
-    
-    func getAllDownload() {
-        
-        let downloadGroup = dispatch_group_create()
-        
-        // getActiveDownload
-        let json1 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellActive", "params":[] ]
-        let request1 = AMAriaRpcApi().constructRequest(json1)
-        dispatch_group_enter(downloadGroup)
-        let getActiveDownload = NSURLSession.sharedSession().dataTaskWithRequest(request1){ data, response, error in
-            if error != nil { print("Error -> \(error)"); return }
-            do {
-                let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                if let downloadInfos = result!["result"] as? [NSDictionary] {
-                    self.activeDownload = downloadInfos
-                }
-            } catch {
-                print("Error -> \(error)")
-            }
-            dispatch_group_leave(downloadGroup)
-        }
-        getActiveDownload.resume()
-        
-       
-        // getWaitingDownload
-        let json2 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellWaiting", "params":[0,100] ]
-        let request2 = AMAriaRpcApi().constructRequest(json2)
-        dispatch_group_enter(downloadGroup)
-        let getWaitingDownload = NSURLSession.sharedSession().dataTaskWithRequest(request2){ data, response, error in
-            if error != nil { print("Error -> \(error)"); return }
-            do {
-                let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                if let downloadInfos = result!["result"] as? [NSDictionary] {
-                    self.waitingDownload = downloadInfos
-                }
-            } catch {
-                print("Error -> \(error)")
-            }
-            dispatch_group_leave(downloadGroup)
-        }
-        getWaitingDownload.resume()
-        
-        // getStoppedDownload
-        let json3 = [ "jsonrpc": "2.0","id":1, "method": "aria2.tellStopped", "params":[0,100] ]
-        let request3 = AMAriaRpcApi().constructRequest(json3)
-        dispatch_group_enter(downloadGroup)
-        let getStoppedDownload = NSURLSession.sharedSession().dataTaskWithRequest(request3){ data, response, error in
-            if error != nil { print("Error -> \(error)"); return }
-            do {
-                let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                if let downloadInfos = result!["result"] as? [NSDictionary] {
-                    self.stoppedDownload = downloadInfos
-                }
-            } catch {
-                print("Error -> \(error)")
-            }
-            dispatch_group_leave(downloadGroup)
-        }
-        getStoppedDownload.resume()
-        
-        // completion
-        dispatch_group_notify(downloadGroup, dispatch_get_main_queue()) {
-            // This block will be executed when all tasks are complete
-            self.allDownload = self.activeDownload + self.waitingDownload + self.stoppedDownload
-            // updatetableview
-            print("Result -> complete")
-        }
-    }
-    
-    func pauseBtnTapped(sender:NSButton) {
- 
-        let row = sender.tag
-        let item = allDownload[row]
-        let gid = item["gid"] as! String
-
-        if sender.image?.name() == "pause" {
-            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pause", "params":[gid] ]
-            AMAriaRpcApi().sendRpcJsonRequest(json)
-        } else if sender.image?.name() == "start" {
-            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpause", "params":[gid] ]
-            AMAriaRpcApi().sendRpcJsonRequest(json)
-        }
-    }
     
     override var representedObject: AnyObject? {
         didSet {
@@ -215,7 +153,6 @@ extension ViewController : NSTableViewDelegate {
         
         let item = allDownload[row]
         if tableColumn == tableView.tableColumns[0] {
-            
             
             let files = item["files"] as! [NSDictionary]
             let file = files[0] as NSDictionary

@@ -15,6 +15,7 @@
 		3C57BE5C1D1B2AD900714DF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C57BE5B1D1B2AD900714DF2 /* AppDelegate.swift */; };
 		3C57BE5E1D1B2AD900714DF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C57BE5D1D1B2AD900714DF2 /* ViewController.swift */; };
 		3C57BE631D1B2AD900714DF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C57BE611D1B2AD900714DF2 /* Main.storyboard */; };
+		3C9D43021D3E0816002EACAD /* AMDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9D43011D3E0816002EACAD /* AMDownloadTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3C57BE5D1D1B2AD900714DF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3C57BE621D1B2AD900714DF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C57BE641D1B2AD900714DF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C9D43011D3E0816002EACAD /* AMDownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMDownloadTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 		3C044EEE1D37B27700AB104E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3C9D43011D3E0816002EACAD /* AMDownloadTask.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				3C57BE5E1D1B2AD900714DF2 /* ViewController.swift in Sources */,
 				3C57BE5C1D1B2AD900714DF2 /* AppDelegate.swift in Sources */,
+				3C9D43021D3E0816002EACAD /* AMDownloadTask.swift in Sources */,
 				3C3C4C7E1D228B33005536C4 /* AMTableCell.swift in Sources */,
 				3C044EEB1D37B00C00AB104E /* AMAriaRpcApi.swift in Sources */,
 			);
