@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class AMViewController: NSViewController {
     
     @IBOutlet weak var topView: NSView!
     @IBOutlet weak var sideView: NSView!
@@ -32,7 +32,7 @@ class ViewController: NSViewController {
 
         updateButtonState("init")
 
-        let timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(AMViewController.updateStatus), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSEventTrackingRunLoopMode)
         timer.fire()
     }
@@ -169,13 +169,13 @@ class ViewController: NSViewController {
     }
 }
 
-extension ViewController : NSTableViewDataSource {
+extension AMViewController : NSTableViewDataSource {
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return allDownloadTasks.count ?? 0
     }
 }
 
-extension ViewController : NSTableViewDelegate {
+extension AMViewController : NSTableViewDelegate {
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         

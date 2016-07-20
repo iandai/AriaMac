@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-//RPC INTERFACE
 class AMAriaRpcApi {
 
     func downloadTasks(completion: (result: NSArray?, error: NSError?) -> Void) {
