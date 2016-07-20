@@ -6,29 +6,11 @@
 //  Copyright © 2016 FirstRisingTide. All rights reserved.
 //
 
-// ID
-// Status
-
-// : START STATE
-// active
-// waiting
-// error
-
-// : PAUSED STATE
-// paused
-
-
-// : NO STATE
-// complete
-
-// : REMOVED
-// removed
-
-
 import Foundation
 
 class AMDownloadTask {
 
+    var gid:String
     var name:String
     var completedLength:Double
     var totalLength:Double
@@ -37,6 +19,7 @@ class AMDownloadTask {
 
     init(responseItem: NSDictionary) {
         
+        self.gid = responseItem["gid"] as! String
         self.name = "" // call func here is illegal
         self.completedLength = (responseItem["completedLength"] as! NSString).doubleValue
         self.totalLength = (responseItem["totalLength"] as! NSString).doubleValue
@@ -44,7 +27,6 @@ class AMDownloadTask {
         self.progress = 0
         setupName(responseItem)
         setupProgress(responseItem)
-        
     }
     
     func setupName(responseItem: NSDictionary) {

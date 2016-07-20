@@ -12,7 +12,7 @@ import Foundation
 //RPC INTERFACE
 class AMAriaRpcApi {
 
-    func downloadTasks(completion: (result: NSArray?, error: NSError?)->()) {
+    func downloadTasks(completion: (result: NSArray?, error: NSError?) -> Void) {
         
         let downloadGroup = dispatch_group_create()
         var allDownload = [NSDictionary]()
@@ -86,6 +86,37 @@ class AMAriaRpcApi {
         }
     }
 
+    
+    func addUrl(inputUrl: String) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.addUri", "params":[[inputUrl]] ]
+        sendRpcJsonRequest(json)
+    }
+    
+    func unpause(gid: String) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpause", "params":[gid] ]
+        sendRpcJsonRequest(json)
+    }
+
+    func pause(gid: String) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pause", "params":[gid] ]
+        sendRpcJsonRequest(json)
+    }
+    
+    func remove(gid: String) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.remove", "params":[gid] ]
+        sendRpcJsonRequest(json)
+    }
+    
+    func unpauseAll() {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
+        sendRpcJsonRequest(json)
+    }
+    
+    func pauseAll() {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pauseAll", "params":[] ]
+        sendRpcJsonRequest(json)
+    }
+    
     func sendRpcJsonRequest(json: AnyObject) {
 
         let request = constructRequest(json)

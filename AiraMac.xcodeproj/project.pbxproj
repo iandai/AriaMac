@@ -104,9 +104,9 @@
 		3C57BE5A1D1B2AD900714DF2 /* AiraMac */ = {
 			isa = PBXGroup;
 			children = (
+				3C57BE5B1D1B2AD900714DF2 /* AppDelegate.swift */,
 				3C044EEC1D37B25E00AB104E /* API */,
 				3C044EEE1D37B27700AB104E /* Model */,
-				3C57BE5B1D1B2AD900714DF2 /* AppDelegate.swift */,
 				3C044EED1D37B27000AB104E /* Controller */,
 				3C044EEF1D37B27D00AB104E /* View */,
 				3C57BE611D1B2AD900714DF2 /* Main.storyboard */,

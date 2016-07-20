@@ -718,7 +718,7 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="h7s-UV-8zF">
-                                                                    <rect key="frame" x="343" y="22" width="180" height="19"/>
+                                                                    <rect key="frame" x="432" y="22" width="180" height="19"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="8FV-zO-oF2"/>
                                                                         <constraint firstAttribute="width" constant="180" id="iOt-F3-3Md"/>
@@ -733,34 +733,22 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JCb-fr-DQK">
-                                                                    <rect key="frame" x="493" y="5" width="32" height="16"/>
+                                                                    <rect key="frame" x="582" y="5" width="32" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0.0%" placeholderString="" id="4QA-ke-Cng">
                                                                         <font key="font" metaFont="cellTitle"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UvC-lO-Lan">
-                                                                    <rect key="frame" x="540" y="4" width="39" height="36"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="24" id="2vJ-tT-GOV"/>
-                                                                    </constraints>
-                                                                    <buttonCell key="cell" type="round" bezelStyle="circular" image="pause" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="J4v-KU-QUh">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="JCb-fr-DQK" firstAttribute="top" secondItem="h7s-UV-8zF" secondAttribute="bottom" constant="2" id="96I-9Y-RPs"/>
                                                                 <constraint firstItem="h7s-UV-8zF" firstAttribute="trailing" secondItem="JCb-fr-DQK" secondAttribute="trailing" id="H4X-SN-KtW"/>
                                                                 <constraint firstItem="Q9i-2o-6qR" firstAttribute="trailing" secondItem="Nyh-cT-488" secondAttribute="trailing" id="LWa-XV-IsS"/>
                                                                 <constraint firstItem="Q9i-2o-6qR" firstAttribute="top" secondItem="bmA-A0-xTx" secondAttribute="top" constant="10" id="Uon-oK-2Ds"/>
-                                                                <constraint firstItem="h7s-UV-8zF" firstAttribute="leading" secondItem="Q9i-2o-6qR" secondAttribute="trailing" constant="26" id="Xia-dV-9fi"/>
-                                                                <constraint firstItem="UvC-lO-Lan" firstAttribute="leading" secondItem="h7s-UV-8zF" secondAttribute="trailing" constant="23" id="a1U-xy-W5d"/>
+                                                                <constraint firstItem="h7s-UV-8zF" firstAttribute="leading" secondItem="Q9i-2o-6qR" secondAttribute="trailing" constant="115" id="Xia-dV-9fi"/>
                                                                 <constraint firstItem="Q9i-2o-6qR" firstAttribute="top" secondItem="h7s-UV-8zF" secondAttribute="top" id="fAf-cD-gAh"/>
                                                                 <constraint firstItem="Q9i-2o-6qR" firstAttribute="leading" secondItem="Nyh-cT-488" secondAttribute="leading" id="g2l-36-xZ3"/>
-                                                                <constraint firstItem="UvC-lO-Lan" firstAttribute="centerY" secondItem="bmA-A0-xTx" secondAttribute="centerY" id="lKc-Z7-TWh"/>
                                                                 <constraint firstItem="Nyh-cT-488" firstAttribute="baseline" secondItem="JCb-fr-DQK" secondAttribute="baseline" id="mfn-Dz-k2Z"/>
                                                                 <constraint firstItem="Nyh-cT-488" firstAttribute="baseline" secondItem="JCb-fr-DQK" secondAttribute="firstBaseline" id="noV-6p-UQH"/>
                                                                 <constraint firstItem="Nyh-cT-488" firstAttribute="centerY" secondItem="JCb-fr-DQK" secondAttribute="centerY" id="pi6-je-N1H"/>
@@ -769,7 +757,6 @@
                                                             <connections>
                                                                 <outlet property="completedLengthLbl" destination="Nyh-cT-488" id="sqF-16-WzV"/>
                                                                 <outlet property="nameLbl" destination="Q9i-2o-6qR" id="aZJ-To-LrN"/>
-                                                                <outlet property="pauseBtn" destination="UvC-lO-Lan" id="JJE-iD-9ml"/>
                                                                 <outlet property="progressIndicator" destination="h7s-UV-8zF" id="uo9-60-Hrl"/>
                                                                 <outlet property="progressLbl" destination="JCb-fr-DQK" id="Vq8-JB-iqF"/>
                                                             </connections>
@@ -778,6 +765,7 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <action selector="tableRowSelected:" target="XfG-lQ-9wD" id="bcI-Wx-vW9"/>
                                                 <outlet property="menu" destination="EkR-nR-fge" id="0q2-Ia-eMY"/>
                                             </connections>
                                         </tableView>
@@ -815,6 +803,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="stopTaskBtn:" target="XfG-lQ-9wD" id="OYo-ga-smU"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cPc-ZW-nEe">
                                         <rect key="frame" x="137" y="4" width="30" height="21"/>
@@ -822,6 +813,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="removeTaskBtn:" target="XfG-lQ-9wD" id="97C-G4-Mwg"/>
+                                        </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B2v-zO-hvr">
                                         <rect key="frame" x="52" y="0.0" width="2" height="30"/>
@@ -837,6 +831,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="startTaskBtn:" target="XfG-lQ-9wD" id="bVZ-BN-irh"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </customView>
@@ -866,8 +863,11 @@
                     <connections>
                         <outlet property="deleteBtn" destination="cPc-ZW-nEe" id="7lz-Wv-b6r"/>
                         <outlet property="pauseBtn" destination="vsS-Gk-Hja" id="SHr-aU-XT4"/>
+                        <outlet property="pauseMenuItem" destination="eYY-TV-cKV" id="kaJ-B8-4jY"/>
+                        <outlet property="removeMenuItem" destination="gfr-an-gbC" id="Fte-FU-IYM"/>
                         <outlet property="sideView" destination="VyK-WF-MhB" id="LFr-GM-WA4"/>
                         <outlet property="startBtn" destination="imL-gN-x6a" id="E6E-6g-MeE"/>
+                        <outlet property="startMenuItem" destination="p85-au-QYC" id="VNa-i9-lNM"/>
                         <outlet property="tableView" destination="fNb-0d-2FB" id="pOO-J0-cWQ"/>
                         <outlet property="topView" destination="kva-di-eWV" id="Jjt-TF-B10"/>
                     </connections>
@@ -877,10 +877,16 @@
                     <items>
                         <menuItem title="Show In Finder " id="wYW-q3-z2h">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="showInFinder:" target="XfG-lQ-9wD" id="eNf-bu-wdu"/>
+                            </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="FDP-KU-d6e"/>
                         <menuItem title="Start" id="p85-au-QYC">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="startTask:" target="XfG-lQ-9wD" id="06m-dG-tFE"/>
+                            </connections>
                         </menuItem>
                         <menuItem title="Pause" id="eYY-TV-cKV">
                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -905,12 +911,6 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="pauseAll:" target="XfG-lQ-9wD" id="4UN-rZ-9FM"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Remove All" id="Q9H-XD-adT">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="removeAll:" target="XfG-lQ-9wD" id="n4j-Tb-SDu"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="Tun-bU-jhJ"/>

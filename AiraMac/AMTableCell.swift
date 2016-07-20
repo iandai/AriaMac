@@ -16,4 +16,5 @@ class AMTableCell : NSTableCellView {
     @IBOutlet weak var nameLbl: NSTextField!
     @IBOutlet weak var progressLbl: NSTextField!
     @IBOutlet weak var completedLengthLbl: NSTextField!
+    var status: String!
 }
