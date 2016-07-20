@@ -863,11 +863,8 @@
                     <connections>
                         <outlet property="deleteBtn" destination="cPc-ZW-nEe" id="7lz-Wv-b6r"/>
                         <outlet property="pauseBtn" destination="vsS-Gk-Hja" id="SHr-aU-XT4"/>
-                        <outlet property="pauseMenuItem" destination="eYY-TV-cKV" id="kaJ-B8-4jY"/>
-                        <outlet property="removeMenuItem" destination="gfr-an-gbC" id="Fte-FU-IYM"/>
                         <outlet property="sideView" destination="VyK-WF-MhB" id="LFr-GM-WA4"/>
                         <outlet property="startBtn" destination="imL-gN-x6a" id="E6E-6g-MeE"/>
-                        <outlet property="startMenuItem" destination="p85-au-QYC" id="VNa-i9-lNM"/>
                         <outlet property="tableView" destination="fNb-0d-2FB" id="pOO-J0-cWQ"/>
                         <outlet property="topView" destination="kva-di-eWV" id="Jjt-TF-B10"/>
                     </connections>
@@ -882,25 +879,6 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="FDP-KU-d6e"/>
-                        <menuItem title="Start" id="p85-au-QYC">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="startTask:" target="XfG-lQ-9wD" id="06m-dG-tFE"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Pause" id="eYY-TV-cKV">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="stopTask:" target="XfG-lQ-9wD" id="Zdd-Er-Scc"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Remove" id="gfr-an-gbC">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="removeTask:" target="XfG-lQ-9wD" id="0hF-OA-BvF"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem isSeparatorItem="YES" id="ldo-Er-N7k"/>
                         <menuItem title="Start All" id="srq-ng-CgX">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>

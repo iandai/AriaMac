@@ -18,13 +18,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var pauseBtn: NSButton!
     @IBOutlet weak var deleteBtn: NSButton!
     
-    @IBOutlet weak var startMenuItem: NSMenuItem!
-    @IBOutlet weak var pauseMenuItem: NSMenuItem!
-    @IBOutlet weak var removeMenuItem: NSMenuItem!
-    
     var allDownloadTasks = [NSDictionary]()
     var ariaApi = AMAriaRpcApi()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +28,12 @@ class ViewController: NSViewController {
         tableView.setDataSource(self)
         tableView.target = self
         
-        self.sideView.layer?.backgroundColor = NSColor.init(patternImage: NSImage.init(named:"side-img")!).CGColor
+        self.sideView.layer?.backgroundColor = NSColor.darkGrayColor().CGColor
         updateButtonState("init")
 
-        let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSEventTrackingRunLoopMode)
+        timer.fire()
     }
 
     func updateStatus() {
@@ -45,6 +41,7 @@ class ViewController: NSViewController {
             self.allDownloadTasks = result as! [NSDictionary]
         })
         reloadDataWithSelection()
+        updateButtonStateOnSelectedRow()
     }
     
     func reloadDataWithSelection() {
@@ -63,34 +60,22 @@ class ViewController: NSViewController {
             self.startBtn.enabled = false
             self.pauseBtn.enabled = true
             self.deleteBtn.enabled = true
-            self.startMenuItem.enabled = false
-            self.pauseMenuItem.enabled = true
-            self.removeMenuItem.enabled = true
         case ("paused"):
             self.startBtn.enabled = true
             self.pauseBtn.enabled = false
             self.deleteBtn.enabled = true
-            self.startMenuItem.enabled = true
-            self.pauseMenuItem.enabled = false
-            self.removeMenuItem.enabled = true
         case ("complete"):
             self.startBtn.enabled = false
             self.pauseBtn.enabled = false
             self.deleteBtn.enabled = true
-            self.startMenuItem.enabled = false
-            self.pauseMenuItem.enabled = false
-            self.removeMenuItem.enabled = true
         default: // init, remove status, unselected
             self.startBtn.enabled = false
             self.pauseBtn.enabled = false
             self.deleteBtn.enabled = false
-            self.startMenuItem.enabled = false
-            self.pauseMenuItem.enabled = false
-            self.removeMenuItem.enabled = false
         }
     }
     
-    @IBAction func tableRowSelected(sender: AnyObject) {
+    func updateButtonStateOnSelectedRow() {
         let index = self.tableView.selectedRow
         if index > -1 {
             let task = self.allDownloadTasks[index]
@@ -98,6 +83,10 @@ class ViewController: NSViewController {
         } else {
             updateButtonState("unselected")
         }
+    }
+    
+    @IBAction func tableRowSelected(sender: AnyObject) {
+        updateButtonStateOnSelectedRow()
     }
     
     
@@ -142,38 +131,26 @@ class ViewController: NSViewController {
         if index > -1 {
             let task = self.allDownloadTasks[index]
             let gid = task["gid"] as! String
-            self.ariaApi.remove(gid)
+            let status = task["status"] as! String
+            
+            if status == "complete" {
+                self.ariaApi.removeDownloadResult(gid)
+            } else {
+                self.ariaApi.remove(gid)
+            }
         }
     }
     
     @IBAction func showInFinder(sender: NSMenuItem) {
-        NSWorkspace.sharedWorkspace().selectFile("~/Downloads/", inFileViewerRootedAtPath: "")
-    }
-    
-    @IBAction func startTask(sender: NSMenuItem) {
+        
         let index = self.tableView.selectedRow
         if index > -1 {
-            let task = self.allDownloadTasks[index]
-            let gid = task["gid"] as! String
-            self.ariaApi.unpause(gid)
-        }
-    }
-    
-    @IBAction func stopTask(sender: NSMenuItem) {
-        let index = self.tableView.selectedRow
-        if index > -1 {
-            let task = self.allDownloadTasks[index]
-            let gid = task["gid"] as! String
-            self.ariaApi.pause(gid)
-        }
-    }
-    
-    @IBAction func removeTask(sender: NSMenuItem) {
-        let index = self.tableView.selectedRow
-        if index > -1 {
-            let task = self.allDownloadTasks[index]
-            let gid = task["gid"] as! String
-            self.ariaApi.remove(gid)
+            let item = self.allDownloadTasks[index]
+            let task = AMDownloadTask(responseItem: item)
+            let fileName = task.name
+            NSWorkspace.sharedWorkspace().selectFile("~/Downloads/\(fileName)", inFileViewerRootedAtPath: "")
+        } else {
+            NSWorkspace.sharedWorkspace().selectFile("~/Downloads/", inFileViewerRootedAtPath: "")
         }
     }
     
@@ -226,28 +203,6 @@ extension ViewController : NSTableViewDelegate {
 }
 
 
-
-//    func pauseBtnTapped(sender:NSButton) {
-//
-//        let row = sender.tag
-//        let item = allDownloadTasks[row]
-//        let task = AMDownloadTask(responseItem: item)
-//        let gid = task.gid
-//
-//        if sender.image?.name() == "pause" {
-//            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.pause", "params":[gid] ]
-//            AMAriaRpcApi().sendRpcJsonRequest(json)
-//        } else if sender.image?.name() == "start" {
-//            let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpause", "params":[gid] ]
-//            AMAriaRpcApi().sendRpcJsonRequest(json)
-//        }
-//    }
-
-//    func tableViewSelectionDidChange(notification: NSNotification) {
-//        print("here")
-//    }
-
-
 //extension NSTableView {
 //    public override func rightMouseDown(event: NSEvent) {
 //
@@ -256,16 +211,3 @@ extension ViewController : NSTableViewDelegate {
 //        event.updateButtonState((cell?.status)!)
 //    }
 //}
-
-//            cell.pauseBtn.tag = row
-//            cell.pauseBtn.target = self
-//            cell.pauseBtn.action = #selector(pauseBtnTapped(_:))
-//            cell.pauseBtn.hidden = true
-
-//            if status == "paused" {
-//                cell.pauseBtn.hidden = false
-//                cell.pauseBtn.image = NSImage(named: "start")
-//            } else if status == "active" {
-//                cell.pauseBtn.hidden = false
-//                cell.pauseBtn.image = NSImage(named: "pause")
-//            }

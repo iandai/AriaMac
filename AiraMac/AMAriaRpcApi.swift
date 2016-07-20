@@ -106,6 +106,11 @@ class AMAriaRpcApi {
         let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.remove", "params":[gid] ]
         sendRpcJsonRequest(json)
     }
+
+    func removeDownloadResult(gid: String) {
+        let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.removeDownloadResult", "params":[gid] ]
+        sendRpcJsonRequest(json)
+    }
     
     func unpauseAll() {
         let json = [ "jsonrpc": "2.0","id":1, "method": "aria2.unpauseAll", "params":[] ]
