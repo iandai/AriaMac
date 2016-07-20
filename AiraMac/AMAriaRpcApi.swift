@@ -80,9 +80,7 @@ class AMAriaRpcApi {
             // This block will be executed when all tasks are complete
             allDownload = activeDownload + waitingDownload + stoppedDownload
             completion(result: allDownload, error: nil)
-
-            // updatetableview
-            // print("Result -> complete")
+            print("Result -> complete")
         }
     }
 

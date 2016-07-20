@@ -28,7 +28,8 @@ class ViewController: NSViewController {
         tableView.setDataSource(self)
         tableView.target = self
         
-        self.sideView.layer?.backgroundColor = NSColor.darkGrayColor().CGColor
+        self.sideView.wantsLayer = true
+
         updateButtonState("init")
 
         let timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(ViewController.updateStatus), userInfo: nil, repeats: true)
@@ -36,6 +37,11 @@ class ViewController: NSViewController {
         timer.fire()
     }
 
+    override func viewWillAppear() {
+        // layer might not init in viewdidload
+        self.sideView.layer?.backgroundColor = NSColor.darkGrayColor().CGColor
+    }
+    
     func updateStatus() {
         ariaApi.downloadTasks({(result: AnyObject?, error: NSError?) in
             self.allDownloadTasks = result as! [NSDictionary]
